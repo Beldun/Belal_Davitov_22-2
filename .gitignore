@@ -1,0 +1,9 @@
+venv
+
+.DS_Store
+
+.idea
+.vscode
+_pycache_/
+*.py[cod]
+*.sod
