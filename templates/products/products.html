@@ -18,7 +18,7 @@
                 {% for category in product.categories %}
                     <div>{{ category.title }}</div>
                 {% endfor %}
-                <a href="#" class="btn btn-primary">More</a>
+                <a href="/products/{{ product.id }}/" class="btn btn-primary">More</a>
             </div>
         </div>
     {% endfor %}
