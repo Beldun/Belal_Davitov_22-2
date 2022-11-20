@@ -43,7 +43,7 @@
     <div class="reviews">
         {% for review in reviews %}
             <div class="review">
-                <p class="author">{{ review.author.username }}</p>
+                <h3> {{ review.author.username }}</h3>
                 <p class="text">{{ review.text }}</p>
             </div>
         {% endfor %}
