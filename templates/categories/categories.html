@@ -9,18 +9,13 @@
         width: 80%;
         flex-wrap: wrap;
     }
-    .img {
-        width: 100%;
-    }
     </style>
     <div class="categories">
     {% for category in categories %}
-        <div class="card" style="width: 20%;">
+        <div class="card" style="width: 18rem;">
+            <img src="/media/{{ category.image }}/" alt="Card image cap" class="card-img-top">
             <div class="card_body">
-                <div class="img">
-                    <img src="/media/{{ category.image }}/" alt="">
-                </div>
-                <h5>
+                <h5 class="card-title">
                     <a href="/products/?category_id={{ category.id }}" class="btn btn-primary">
                         {{ category.title }}
                     </a>

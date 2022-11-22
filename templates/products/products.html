@@ -15,12 +15,10 @@
     </style>
     <div class="products">
     {% for product in products %}
-        <div class="card" style="width: 20%;">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="/media/{{ product.image }}/" alt="Card image cap">
             <div class="card_body">
-                <div class="img">
-                    <img src="/media/{{ product.image }}/" alt="">
-                </div>
-                <h5>{{ product.title }}</h5>
+                <h5 class="card-title">{{ product.title }}</h5>
                 {% for category in product.categories %}
                     <div>{{ category.title }}</div>
                 {% endfor %}
