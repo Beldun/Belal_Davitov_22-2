@@ -15,21 +15,20 @@
             color: #fff;
             margin-bottom: 20px;
         }
-        .img {
-            width: 100%;
-            margin-left: 40%;
+        .info {
+            margin-left: 25%;
         }
     </style>
     <div class="product">
         <div class="categories">
             {% for category in categories %}
-                <p>{{ category.title }}</p>
+                <p style="width: 18rem;">{{ category.title }}</p>
             {% endfor %}
         </div>
-        <div class="img">
-            <img src="/media/{{ product.image }}/" alt="">
-        </div>
         <div class="info">
+             <div class="card" style="width: 25rem;">
+                <img class="card-img-top" src="/media/{{ product.image }}/" alt="">
+             </div>
             <div style="display: flex; justify-content: space-between">
                 <h1>{{ product.title }}</h1>
             </div>
@@ -39,12 +38,19 @@
             <h2>Характеристики:</h2>
             <h4>{{ product.characteristics }}</h4>
         </div>
+        <div class="create_review">
+            <form action="/products/{{ product.id }}/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="btn btn-primary" value="Оставить комментарий">
+            </form>
+        </div>
     </div>
     <div class="reviews">
         {% for review in reviews %}
             <div class="review">
                 <h3> {{ review.author.username }}</h3>
-                <p class="text">{{ review.text }}</p>
+                <p class="text">{{ review.text }}<br>{{ review.rate }}</p>
             </div>
         {% endfor %}
     </div>

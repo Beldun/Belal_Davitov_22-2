@@ -13,6 +13,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField()
     title = models.CharField(max_length=180)
     price = models.IntegerField(default=1)
@@ -22,13 +23,23 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
 
     def __str__(self):
-        return self.title
+        return f'{self.author.username}_{self.title}'
 
 
 class Review(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     text = models.TextField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    rating = (
+        ('Плохо!', 'Плохо!'),
+        ('Неплохо', 'Неплохо'),
+        ('Нормально', 'Нормально'),
+        ('Хорошо', 'Хорошо'),
+        ('Отлично', 'Отлично')
+    )
+
+    rate = models.CharField(default=5, choices=rating, max_length=10)
 
     def __str__(self):
         return f'{self.author.username}_{self.product}'
