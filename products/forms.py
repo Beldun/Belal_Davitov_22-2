@@ -18,9 +18,9 @@ class ProductCreateForm(forms.Form):
 class ReviewCreateForm(forms.Form):
     text = forms.CharField(min_length=5)
     rate = forms.ChoiceField(choices=(
-        ('Плохо!', 'Плохо!'),
-        ('Неплохо!', 'Неплохо!'),
-        ('Нормально!', 'Нормально!'),
-        ('Хорошо!', 'Хорошо!'),
-        ('Отлично!', 'Отлично!')
+        ('1/5', '1/5'),
+        ('2/5', '2/5'),
+        ('3/5', '3/5'),
+        ('4/5', '4/5'),
+        ('5/5', '5/5')
     ))
