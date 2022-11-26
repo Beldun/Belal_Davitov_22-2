@@ -12,6 +12,7 @@ class ProductCreateForm(forms.Form):
     title = forms.CharField(max_length=150)
     price = forms.IntegerField()
     description = forms.CharField(widget=forms.Textarea)
+    characteristics = forms.CharField(widget=forms.Textarea)
 
 
 class ReviewCreateForm(forms.Form):

@@ -51,7 +51,8 @@ def detail_product_view(request, id):
         data = {
             'product': product,
             'categories': product.categories.all(),
-            'reviews': reviews
+            'reviews': reviews,
+            'form': ReviewCreateForm
         }
 
         return render(request, 'products/detail.html', context=data)
@@ -75,7 +76,7 @@ def detail_product_view(request, id):
                 'product': product,
                 'categories': product.categories.all(),
                 'reviews': reviews,
-                'form': ReviewCreateForm
+                'form': form
             }
 
             return render(request, 'products/detail.html', context=data)
@@ -98,6 +99,7 @@ def products_create_view(request):
                 title=form.cleaned_data.get('title'),
                 price=form.cleaned_data.get('price'),
                 description=form.cleaned_data.get('description'),
+                characteristics=form.cleaned_data.get('characteristics')
             )
             return redirect('/products')
         else:
