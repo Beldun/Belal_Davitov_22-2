@@ -5,8 +5,6 @@ from users.utils import get_user_from_request
 
 # Create your views here.
 
-PAGINATION_LIMIT = 4
-
 
 def categories_view(request, **kwargs):
     if request.method == 'GET':
@@ -18,6 +16,9 @@ def categories_view(request, **kwargs):
         }
 
         return render(request, 'categories/categories.html', context=data)
+
+
+PAGINATION_LIMIT = 3
 
 
 def products_view(request):
@@ -46,7 +47,7 @@ def products_view(request):
         }for product in products]
 
         max_page = round(products.__len__() / PAGINATION_LIMIT)
-        posts = products[PAGINATION_LIMIT * (page-1):PAGINATION_LIMIT * page]
+        products = products[PAGINATION_LIMIT * (page-1):PAGINATION_LIMIT * page]
 
         data = {
             'products': products,
