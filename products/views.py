@@ -18,7 +18,7 @@ def categories_view(request, **kwargs):
         return render(request, 'categories/categories.html', context=data)
 
 
-PAGINATION_LIMIT = 1
+PAGINATION_LIMIT = 3
 
 
 def products_view(request):
