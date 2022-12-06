@@ -53,7 +53,8 @@ class ProductsViews(ListView):
                 'colour': product.colour,
                 'characteristics': product.characteristics,
                 'descriptions': product.description,
-                'categories': product.categories.all()
+                'categories': product.categories.all(),
+                'category_id': kwargs['category_id']
             } for product in products]
 
             max_page = round(products.__len__() / PAGINATION_LIMIT)
@@ -61,6 +62,7 @@ class ProductsViews(ListView):
 
             return render(request, 'products/products.html', context=self.get_context_data(
                 products=products,
+                category_id=category_id,
                 max_page=max_page
             ))
 
