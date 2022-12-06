@@ -30,7 +30,7 @@
                 <img class="card-img-top" src="/media/{{ product.image }}/" alt="">
              </div>
             <div style="display: flex; justify-content: space-between">
-                <h1>{{ product.title }}</h1>
+                <h1>{{ product.title }} {{ product.author.username }}</h1>
             </div>
             <h1>Цена: {{ product.price }}</h1>
             <h2>Описание:</h2>

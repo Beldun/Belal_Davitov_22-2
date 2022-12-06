@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from products.models import Category, Product, Review
 from products.forms import ProductCreateForm, ReviewCreateForm
 from users.utils import get_user_from_request
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 # Create your views here.
 
@@ -65,45 +65,55 @@ class ProductsViews(ListView):
             ))
 
 
-def detail_product_view(request, id):
-    if request.method == 'GET':
-        product = Product.objects.get(id=id)
-        reviews = Review.objects.filter(product_id=id)
+class DetailProductView(CreateView, DetailView):
+    model = Product
+    form_class = ReviewCreateForm
+    template_name = 'products/detail.html'
+    pk_url_kwarg = 'id'
 
-        data = {
-            'product': product,
-            'categories': product.categories.all(),
-            'reviews': reviews,
-            'form': ReviewCreateForm,
-            'user': get_user_from_request(request)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        return {
+            'user': get_user_from_request(self.request),
+            'form': kwargs['form'] if kwargs.get('form') else self.form_class,
+            'product': self.get_object(),
+            'reviews': kwargs['reviews'],
+            'categories': kwargs['categories']
         }
 
-        return render(request, 'products/detail.html', context=data)
-
-    if request.method == 'POST':
-        form = ReviewCreateForm(data=request.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST)
 
         if form.is_valid():
             Review.objects.create(
                 author_id=request.user.id,
                 text=form.cleaned_data.get('text'),
+                product_id=kwargs['id'],
                 rate=form.cleaned_data.get('rate'),
-                product_id=id
             )
-            return redirect(f'/products/{id}/')
+            return redirect(f'/products/{kwargs["id"]}/')
         else:
-            product = Product.objects.get(id=id)
-            reviews = Review.objects.filter(product_id=id)
+            products = Product.objects.get(id=kwargs['id'])
+            reviews = Review.objects.filter(product_id=kwargs['id'])
+            categories = products.categories.all()
 
-            data = {
-                'product': product,
-                'categories': product.categories.all(),
-                'reviews': reviews,
-                'form': form,
-                'user': get_user_from_request(request)
-            }
+            return render(request, self.template_name, context=self.get_context_data(
+                form=form,
+                product=products,
+                reviews=reviews,
+                categories=categories
+            ))
 
-            return render(request, 'products/detail.html', context=data)
+    def get(self, request, *args, **kwargs):
+
+        products = Product.objects.get(id=kwargs['id'])
+        reviews = Review.objects.filter(product_id=kwargs['id'])
+        categories = products.categories.all()
+
+        return render(request, self.template_name, context=self.get_context_data(
+            products=products,
+            reviews=reviews,
+            categories=categories
+        ))
 
 
 class ProductsCreateView(ListView, CreateView):

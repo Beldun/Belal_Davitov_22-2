@@ -23,7 +23,7 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
 
     def __str__(self):
-        return f'{self.author.username}_{self.title}'
+        return f'{self.author.username }_{self.title}'
 
 
 class Review(models.Model):
