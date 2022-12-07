@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, DetailView
 
 # Create your views here.
 
-PAGINATION_LIMIT = 1
+PAGINATION_LIMIT = 3
 
 
 class CategoriesViews(ListView):
