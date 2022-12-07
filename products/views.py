@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, DetailView
 
 # Create your views here.
 
-PAGINATION_LIMIT = 3
+PAGINATION_LIMIT = 1
 
 
 class CategoriesViews(ListView):
@@ -28,6 +28,7 @@ class ProductsViews(ListView):
         return {
             'products': kwargs['products'],
             'user': get_user_from_request(self.request),
+            'category_id': kwargs['category_id'],
             'max_page': range(1, kwargs['max_page']+1)
         }
 

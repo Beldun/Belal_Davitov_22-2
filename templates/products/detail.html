@@ -18,19 +18,23 @@
         .info {
             margin-left: 25%;
         }
+        .categories {
+            margin-left: 5%;
+        }
     </style>
     <div class="product">
         <div class="categories">
             {% for category in categories %}
-                <p style="width: 18rem;">{{ category.title }}</p>
+                <p style="width: 25rem;">{{ category.title }}</p>
             {% endfor %}
+            <p style="width: 25rem;">Автор: {{ product.author.username }}</p>
         </div>
         <div class="info">
              <div class="card" style="width: 25rem;">
                 <img class="card-img-top" src="/media/{{ product.image }}/" alt="">
              </div>
             <div style="display: flex; justify-content: space-between">
-                <h1>{{ product.title }} {{ product.author.username }}</h1>
+                <h1>{{ product.title }}</h1>
             </div>
             <h1>Цена: {{ product.price }}</h1>
             <h2>Описание:</h2>
