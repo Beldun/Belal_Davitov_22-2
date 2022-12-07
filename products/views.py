@@ -54,7 +54,6 @@ class ProductsViews(ListView):
                 'characteristics': product.characteristics,
                 'descriptions': product.description,
                 'categories': product.categories.all(),
-                'category_id': kwargs['category_id']
             } for product in products]
 
             max_page = round(products.__len__() / PAGINATION_LIMIT)
@@ -94,15 +93,8 @@ class DetailProductView(CreateView, DetailView):
             )
             return redirect(f'/products/{kwargs["id"]}/')
         else:
-            products = Product.objects.get(id=kwargs['id'])
-            reviews = Review.objects.filter(product_id=kwargs['id'])
-            categories = products.categories.all()
-
             return render(request, self.template_name, context=self.get_context_data(
                 form=form,
-                product=products,
-                reviews=reviews,
-                categories=categories
             ))
 
     def get(self, request, *args, **kwargs):
@@ -112,7 +104,6 @@ class DetailProductView(CreateView, DetailView):
         categories = products.categories.all()
 
         return render(request, self.template_name, context=self.get_context_data(
-            products=products,
             reviews=reviews,
             categories=categories
         ))
